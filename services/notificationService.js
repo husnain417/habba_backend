@@ -31,6 +31,20 @@ class NotificationService {
     }
   }
 
+  async sendEmailToAdmin(to, subject, html) {
+    try {
+      await this.emailTransporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to,
+        subject,
+        html,
+      });
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      throw new Error('Failed to send email notification');
+    }
+  }
+
   async sendWhatsApp(message, toNumber) {
     try {
       await this.twilioClient.messages.create({

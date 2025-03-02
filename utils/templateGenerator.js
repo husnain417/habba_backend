@@ -1,7 +1,7 @@
 class TemplateGenerator {
     static generateOrderEmailHtml(order) {
         return `
-            <h1>Order Confirmation</h1>
+            <h1>Your Order Confirmation</h1>
             <p>Thank you for your order, ${order.firstName} ${order.lastName}!</p>
             <h3>Phone Number: ${order.phone}</h3>
             <h2>Order Details:</h2>
@@ -13,8 +13,26 @@ class TemplateGenerator {
             <p><strong>Total Amount:</strong> Rs ${order.totalAmount}</p>
             <h2>Shipping Details:</h2>
             <p>${order.address}, ${order.city}, ${order.country}, Postal Code: ${order.postalCode}</p>
-            <p>Payment Method: ${order.paymentMethod}</p>
-        `;
+            <p>Payment Method: ${order.paymentMethod === "cash" ? "Cash on Delivery" : "Online Payment"}</p>
+            `;
+    }
+
+    static generateAdminOrderEmailHtml(order) {
+        return `
+            <h1>New Order Placed</h1>
+            <p>Order was placed by, ${order.firstName} ${order.lastName}!</p>
+            <h3>Phone Number: ${order.phone}</h3>
+            <h2>Order Details:</h2>
+            <ul>
+                ${order.items.map(item => `
+                    <li>${item.name} - Quantity: ${item.quantity} - Price: Rs ${item.price * item.quantity}</li>
+                `).join('')}
+            </ul>
+            <p><strong>Total Amount:</strong> Rs ${order.totalAmount}</p>
+            <h2>Shipping Details:</h2>
+            <p>${order.address}, ${order.city}, ${order.country}, Postal Code: ${order.postalCode}</p>
+            <p>Payment Method: ${order.paymentMethod === "cash" ? "Cash on Delivery" : "Online Payment"}</p>
+            `;
     }
 
     static generateWhatsAppMessage(order) {

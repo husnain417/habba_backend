@@ -30,13 +30,18 @@ class OrderController {
       const notificationPromises = [
         this.notificationService.sendEmail(
           order.email,
-          'Order Confirmation',
+          'Your Order Confirmation',
           TemplateGenerator.generateOrderEmailHtml(order)
         ),
-        this.notificationService.sendWhatsApp(
-          TemplateGenerator.generateWhatsAppMessage(order),
-          process.env.ADMIN_WHATSAPP_NUMBER
-        ),
+        this.notificationService.sendEmail(
+          'sultanshah101004@gmail.com',
+          'New Order',
+          TemplateGenerator.generateAdminOrderEmailHtml(order)
+        )
+        // this.notificationService.sendWhatsApp(
+        //   TemplateGenerator.generateWhatsAppMessage(order),
+        //   process.env.ADMIN_WHATSAPP_NUMBER
+        // ),
       ];
 
       // Wait for all notifications to be sent
