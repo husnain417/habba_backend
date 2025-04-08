@@ -30,9 +30,10 @@ app.get('/about-us', (req, res) => {
   res.redirect('/about');
 });
 
-app.get('/', (req, res) => {
-  res.redirect('/blogs');
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'Healthy', timestamp: new Date() });
 });
+
 
 app.get('/create', (req, res) => {
   res.render('create', { title: 'Create Blog' });
